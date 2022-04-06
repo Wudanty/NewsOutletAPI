@@ -5,6 +5,8 @@ import com.example.newsoutletapi.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/post")
 public class PostController {
@@ -27,6 +29,11 @@ public class PostController {
     String editPost(@RequestBody Post post){
         postService.editPost(post);
         return "Post edited successfully";
+    }
+
+    @GetMapping("/getAll")
+    List<Post> getAllPosts(){
+        return postService.getAllPosts();
     }
 
 

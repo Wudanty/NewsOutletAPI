@@ -37,6 +37,10 @@ public class PostService {
          return postRepository.save(editedPost);
     }
 
+    public List<Post> getAllPosts(){
+        return postRepository.findAll();
+    }
+
 
 
 }
