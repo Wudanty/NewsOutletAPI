@@ -1,5 +1,6 @@
 package com.example.newsoutletapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,6 +17,7 @@ public class User {
     private String nickname;
     private String password;
     @OneToMany
+    @JsonIgnore
     private List<Post> userPosts;
 
 }
