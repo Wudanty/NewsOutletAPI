@@ -23,6 +23,15 @@ public class PostService {
         return "Post successfully deleted";
     }
 
+    public Post editPost(Post post){
+         Post editedPost = postRepository.getById(post.getPostId());
+         editedPost.setTitle(post.getTitle());
+         editedPost.setContent(post.getContent());
+         editedPost.setAuthor(post.getAuthor());
+         editedPost.setTags(post.getTags());
+         return postRepository.save(editedPost);
+    }
+
 
 
 }
