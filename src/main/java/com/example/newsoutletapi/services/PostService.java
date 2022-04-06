@@ -23,17 +23,6 @@ public class PostService {
         return "Post successfully deleted";
     }
 
-    public List<Post> getUserPostsByUserId(Integer id){
-        List<Post> allPosts = postRepository.findAll();
-        List<Post> userPosts = new ArrayList<>();
-        for(Post item:allPosts){
-            if(item.getPostId().equals(id)){
-                userPosts.add(item);
-            }
-        }
-        return userPosts;
-    }
-
 
 
 }
