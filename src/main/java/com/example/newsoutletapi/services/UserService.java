@@ -1,5 +1,6 @@
 package com.example.newsoutletapi.services;
 
+import com.example.newsoutletapi.model.Post;
 import com.example.newsoutletapi.model.User;
 import com.example.newsoutletapi.repos.UserRepository;
 
@@ -34,6 +35,12 @@ public class UserService {
         updatedUser.setPassword(user.getPassword());
         userRepository.save(updatedUser);
         return updatedUser;
+    }
+
+    public List<Post> getUserPosts(Integer id){
+        User user = userRepository.findById(id).get();
+        return user.getUserPosts();
+
     }
 
     public List<User> getAllUsers(){

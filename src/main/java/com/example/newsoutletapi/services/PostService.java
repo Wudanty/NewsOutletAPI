@@ -23,15 +23,13 @@ public class PostService {
         return "Post successfully deleted";
     }
 
-    public List<Post> getUserPostsByUserId(Integer id){
-        List<Post> allPosts = postRepository.findAll();
-        List<Post> userPosts = new ArrayList<>();
-        for(Post item:allPosts){
-            if(item.getPostId().equals(id)){
-                userPosts.add(item);
-            }
-        }
-        return userPosts;
+    public Post editPost(Post post){
+         Post editedPost = postRepository.getById(post.getPostId());
+         editedPost.setTitle(post.getTitle());
+         editedPost.setContent(post.getContent());
+         editedPost.setAuthor(post.getAuthor());
+         editedPost.setTags(post.getTags());
+         return postRepository.save(editedPost);
     }
 
 
