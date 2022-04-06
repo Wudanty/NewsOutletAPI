@@ -1,6 +1,7 @@
 package com.example.newsoutletapi.services;
 
 import com.example.newsoutletapi.model.Post;
+import com.example.newsoutletapi.model.User;
 import com.example.newsoutletapi.repos.PostRepository;
 import com.example.newsoutletapi.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,12 @@ import java.util.List;
 public class PostService {
     @Autowired
     PostRepository postRepository;
+    @Autowired
+    UserRepository userRepository;
 
     public Post postNew(Post post){
+        User postAuthor = userRepository.getById(post.getAuthor().getUserId());
+        postAuthor.getUserPosts().add(post);
         return postRepository.save(post);
     }
 
