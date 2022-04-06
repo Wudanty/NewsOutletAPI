@@ -1,4 +1,5 @@
 package com.example.newsoutletapi.controllers;
+import com.example.newsoutletapi.model.Post;
 import com.example.newsoutletapi.model.User;
 import com.example.newsoutletapi.services.UserService;
 import org.springframework.data.repository.query.Param;
@@ -43,5 +44,10 @@ public class UserController {
     @GetMapping("/hi")
     public String helloWorld(){
         return "Hello World!";
+    }
+
+    @GetMapping("/get/{id}/getPosts")
+    public List<Post> getUserPosts(@PathVariable("id") Integer id){
+        return userService.getUserPosts(id);
     }
 }
