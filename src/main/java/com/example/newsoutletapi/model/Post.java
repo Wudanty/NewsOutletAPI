@@ -1,5 +1,6 @@
 package com.example.newsoutletapi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,9 @@ public class Post {
     private String title;
     private String content;
     @ManyToOne
-    private User author;
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
     @ElementCollection
     private List<String> tags;
 

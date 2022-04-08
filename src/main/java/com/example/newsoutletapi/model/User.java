@@ -1,6 +1,8 @@
 package com.example.newsoutletapi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,8 +18,8 @@ public class User {
     private int userId;
     private String nickname;
     private String password;
-    @OneToMany
-    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private List<Post> userPosts;
 
 }
