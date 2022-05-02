@@ -5,6 +5,7 @@ import com.example.newsoutletapi.repos.PostRepository;
 import com.example.newsoutletapi.repos.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -16,6 +17,7 @@ public class PostService {
         this.postRepository = postRepository;
     }
     public void postNew(Post post){
+        post.setCreationDate(LocalDateTime.now());
         postRepository.save(post);
     }
 
