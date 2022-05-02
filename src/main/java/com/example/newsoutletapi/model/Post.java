@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -14,7 +16,9 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer postId;
+    @Column(nullable = false)
     private String title;
+    @Column(nullable = false)
     private String content;
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -22,5 +26,6 @@ public class Post {
     private User user;
     @ElementCollection
     private List<String> tags;
+    private LocalDate creationDate;
 
 }

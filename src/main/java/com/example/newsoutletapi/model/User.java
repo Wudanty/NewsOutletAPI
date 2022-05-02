@@ -16,7 +16,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int userId;
+    @Column(nullable = false)
     private String nickname;
+    @Column(nullable = false)
     private String password;
     @OneToMany(mappedBy = "user")
     @JsonManagedReference
