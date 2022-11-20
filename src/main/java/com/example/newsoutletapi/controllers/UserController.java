@@ -1,8 +1,7 @@
 package com.example.newsoutletapi.controllers;
-import com.example.newsoutletapi.model.Post;
+import com.example.newsoutletapi.model.Article;
 import com.example.newsoutletapi.model.User;
 import com.example.newsoutletapi.services.UserService;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,8 +45,13 @@ public class UserController {
         return "Hello World!";
     }
 
+    @GetMapping("/getByNickname/{nickname}")
+    public User getByNickname(@PathVariable String nickname){
+        return userService.getUserByNickname(nickname);
+    }
+
     @GetMapping("/get/{id}/getPosts")
-    public List<Post> getUserPosts(@PathVariable("id") Integer id){
+    public List<Article> getUserPosts(@PathVariable("id") Integer id){
         return userService.getUserPosts(id);
     }
 }

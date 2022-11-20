@@ -1,17 +1,15 @@
 package com.example.newsoutletapi.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
 import javax.persistence.*;
 
-@Entity(name="users")
-@Getter
-@Setter
+@Entity
+@Data
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -21,7 +19,7 @@ public class User {
     @Column(nullable = false)
     private String password;
     @OneToMany(mappedBy = "user")
-    @JsonManagedReference
-    private List<Post> userPosts;
+    @JsonBackReference
+    private List<Article> userArticles;
 
 }
