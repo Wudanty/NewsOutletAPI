@@ -1,6 +1,8 @@
 package com.example.newsoutletapi.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,22 +12,22 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
-public class Post {
+@Table(name = "articles")
+@Data
+public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer postId;
+    private Integer articleId;
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)
     private String content;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference
     private User user;
-    @ElementCollection
-    private List<String> tags;
+    @OneToMany(mappedBy = "article")
+    @JsonManagedReference
+    private List<Tag> articleTags;
     private LocalDate creationDate;
 
 }
