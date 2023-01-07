@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.persistence.*;
@@ -30,5 +31,7 @@ public class Article {
     private List<Tag> articleTags;
     private LocalDate creationDate;
     private Boolean isVerified;
+    @Column(length = 100000)
+    private byte[] picture;
 
 }
