@@ -29,5 +29,6 @@ public class Article {
     @JsonManagedReference
     private List<Tag> articleTags;
     private LocalDate creationDate;
+    private Boolean isVerified;
 
 }

@@ -44,7 +44,7 @@ public class TagService {
     }
 
 
-    public List<Article> findTagsByName(String name) {
+    public List<Article> findArticlesByTagName(String name) {
         return tagRepository.findAllByName(name).stream().map(Tag::getArticle).collect(Collectors.toList());
     }
 }

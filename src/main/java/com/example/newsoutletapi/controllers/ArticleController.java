@@ -67,6 +67,16 @@ public class ArticleController {
         return "Post edited successfully";
     }
 
+    @PutMapping("/{id}/verify")
+    Article verifyArticle(@PathVariable Integer id){
+        return articleService.verifyArticle(id);
+    }
+
+    @GetMapping("/{id}/get")
+    Article getArticleById(@PathVariable Integer id){
+        return articleService.getArticleById(id);
+    }
+
     @GetMapping("/getAll")
     List<Article> getAllArticles(){
         return articleService.getAllArticles();
@@ -79,8 +89,23 @@ public class ArticleController {
 
     @GetMapping("/getByTag/{name}")
     List<Article> getArticlesByTag(@PathVariable String name){
-        return tagService.findTagsByName(name);
+        return articleService.findArticlesByTagName(name);
         //return articleService.getArticlesByTag(articlesIds);
+    }
+
+    @GetMapping("/getVerified")
+    List<Article> getVerifiedArticles(){
+        return articleService.getVerified();
+    }
+
+    @GetMapping("/getUnverified")
+    List<Article> getUnverifiedArticles(){
+        return articleService.getUnverified();
+    }
+
+    @GetMapping("/getByAuthor/{id}")
+    List<Article> getArticlesByAuthor(@PathVariable Integer id){
+        return articleService.findArticlesByAuthor(id);
     }
 
 

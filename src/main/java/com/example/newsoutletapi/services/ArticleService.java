@@ -1,7 +1,9 @@
 package com.example.newsoutletapi.services;
 
 import com.example.newsoutletapi.model.Article;
+import com.example.newsoutletapi.model.Tag;
 import com.example.newsoutletapi.repos.ArticleRepository;
+import com.example.newsoutletapi.repos.TagRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -10,17 +12,21 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final TagRepository tagRepository;
 
-    public ArticleService(ArticleRepository articleRepository) {
+    public ArticleService(ArticleRepository articleRepository, TagRepository tagRepository) {
+        this.tagRepository = tagRepository;
         this.articleRepository = articleRepository;
     }
     public Article postNewArticle(Article article){
         article.setCreationDate(LocalDate.now());
+        article.setIsVerified(false);
         articleRepository.save(article);
         articleRepository.flush();
         return article;
@@ -43,7 +49,14 @@ public class ArticleService {
          editedArticle.setContent(article.getContent());
          editedArticle.setUser(article.getUser());
          editedArticle.setArticleTags(article.getArticleTags());
+         editedArticle.setIsVerified(article.getIsVerified());
          return articleRepository.save(editedArticle);
+    }
+
+    public Article verifyArticle(Integer id){
+        Article editedArticle = articleRepository.getById(id);
+        editedArticle.setIsVerified(true);
+        return articleRepository.save(editedArticle);
     }
 
     public List<Article> getAllArticles(){
@@ -72,10 +85,39 @@ public class ArticleService {
         return null;
     }
 
-    public List<Article> getArticlesByTag(List<Integer> articleIds){
-        return articleRepository.findArticlesByArticleIdIn(articleIds);
+    public List<Article> getUnverified(){
+        List<Article> result = new ArrayList<>();
+        for(Article article:articleRepository.findAll()){
+            if(!article.getIsVerified()){
+                result.add(article);
+            }
+        }
+        return result;
     }
 
+    public List<Article> getVerified(){
+        List<Article> result = new ArrayList<>();
+        for(Article article:articleRepository.findAll()){
+            if(article.getIsVerified()){
+                result.add(article);
+            }
+        }
+        return result;
+    }
+
+    public List<Article> findArticlesByTagName(String name) {
+        return tagRepository.findAllByName(name).stream().map(Tag::getArticle).collect(Collectors.toList());
+    }
+
+    public List<Article> findArticlesByAuthor(Integer id){
+        List<Article> result = new ArrayList<>();
+        for(Article article:articleRepository.findAll()){
+            if(article.getUser().getUserId() == id){
+                result.add(article);
+            }
+        }
+        return result;
+    }
 
 
 
