@@ -119,6 +119,15 @@ public class ArticleService {
         return result;
     }
 
+    public List<Article> findArticlesByKeyWord(String keyWord){
+        List<Article> searchResult = new ArrayList<>();
+        for(Article article:articleRepository.findAll()){
+            if(article.getIsVerified() && article.getTitle().contains(keyWord)){
+                searchResult.add(article);
+            }
+        }
+        return searchResult;
+    }
 
 
 
