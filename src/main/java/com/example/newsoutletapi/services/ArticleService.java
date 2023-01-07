@@ -106,7 +106,14 @@ public class ArticleService {
     }
 
     public List<Article> findArticlesByTagName(String name) {
-        return tagRepository.findAllByName(name).stream().map(Tag::getArticle).collect(Collectors.toList());
+        List<Article> articlesWithTag = tagRepository.findAllByName(name).stream().map(Tag::getArticle).collect(Collectors.toList());
+        List<Article> result = new ArrayList<>();
+        for(Article article:articlesWithTag){
+            if(article.getIsVerified()){
+                result.add(article);
+            }
+        }
+        return result;
     }
 
     public List<Article> findArticlesByAuthor(Integer id){
