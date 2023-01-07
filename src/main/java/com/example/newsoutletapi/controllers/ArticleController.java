@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/article")
@@ -106,6 +107,11 @@ public class ArticleController {
     @GetMapping("/getByAuthor/{id}")
     List<Article> getArticlesByAuthor(@PathVariable Integer id){
         return articleService.findArticlesByAuthor(id);
+    }
+
+    @GetMapping("/getBySearch/{keyWord}")
+    List<Article> getAllContaining(@PathVariable String keyWord){
+        return articleService.findArticlesByKeyWord(keyWord);
     }
 
 
