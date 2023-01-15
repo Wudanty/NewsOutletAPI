@@ -79,6 +79,18 @@ public class ArticleService {
         }
     }
 
+    public Optional<Article> getVerifiedArticleById(Integer id){
+        Optional<Article> result = articleRepository.findById(id);
+        try{
+            if(result.isPresent() && result.get().getIsVerified()){
+                return articleRepository.findById(id);
+            }
+            return Optional.empty();
+        }catch(Exception e){
+            return Optional.empty();
+        }
+    }
+
     public Article getArticleByTitle(String title){
         for(Article article:articleRepository.findAll()){
             if(article.getTitle().equals(title)){
