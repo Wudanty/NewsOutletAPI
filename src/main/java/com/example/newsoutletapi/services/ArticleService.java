@@ -71,8 +71,12 @@ public class ArticleService {
         return articleRepository.getById(article.getArticleId());
     }
 
-    public Article getArticleById(Integer id){
-        return articleRepository.getById(id);
+    public Optional<Article> getArticleById(Integer id){
+        try{
+           return articleRepository.findById(id);
+        }catch(Exception e){
+            return Optional.empty();
+        }
     }
 
     public Article getArticleByTitle(String title){

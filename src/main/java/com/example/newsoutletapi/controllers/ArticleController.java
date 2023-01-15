@@ -7,7 +7,6 @@ import com.example.newsoutletapi.model.User;
 import com.example.newsoutletapi.services.ArticleService;
 import com.example.newsoutletapi.services.TagService;
 import com.example.newsoutletapi.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +39,7 @@ public class ArticleController {
         newArticle.setArticleTags(new ArrayList<>());
         System.out.println(article.getUser().getNickname());
         System.out.println(article.getUser().toString());
+        newArticle.setPicture(article.getPicture());
         User author = userService.getUserByNickname(article.getUser().getNickname());
 
         newArticle.setUser(author);
@@ -74,7 +74,7 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}/get")
-    Article getArticleById(@PathVariable Integer id){
+    Optional<Article> getArticleById(@PathVariable Integer id){
         return articleService.getArticleById(id);
     }
 

@@ -15,5 +15,6 @@ public class RequestArticle {
     private User user;
     private List<String> articleTags;
     private LocalDate creationDate;
+    private byte[] picture;
 
 }
