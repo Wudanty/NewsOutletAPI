@@ -39,6 +39,7 @@ public class ArticleController {
         newArticle.setArticleTags(new ArrayList<>());
         System.out.println(article.getUser().getNickname());
         System.out.println(article.getUser().toString());
+        newArticle.setPicture(article.getPicture());
         User author = userService.getUserByNickname(article.getUser().getNickname());
 
         newArticle.setUser(author);
