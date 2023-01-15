@@ -78,6 +78,11 @@ public class ArticleController {
         return articleService.getArticleById(id);
     }
 
+    @GetMapping("/{id}/getVerified")
+    Optional<Article> getVerifiedArticleById(@PathVariable Integer id){
+        return articleService.getVerifiedArticleById(id);
+    }
+
     @GetMapping("/getAll")
     List<Article> getAllArticles(){
         return articleService.getAllArticles();
