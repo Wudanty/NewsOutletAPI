@@ -14,10 +14,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int userId;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String nickname;
     @Column(nullable = false)
     private String password;
+    @Column(nullable = false, unique = true)
+    private String email;
     @OneToMany(mappedBy = "user")
     @JsonBackReference
     private List<Article> userArticles;
