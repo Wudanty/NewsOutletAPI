@@ -59,6 +59,18 @@ public class ArticleService {
         return articleRepository.save(editedArticle);
     }
 
+    public Article declineArticle(Integer id){
+        Article editedArticle = articleRepository.getById(id);
+        editedArticle.setIsDeclined(true);
+        return articleRepository.save(editedArticle);
+    }
+
+    public Article markAsVerifyInProgress(Integer id){
+        Article editedArticle = articleRepository.getById(id);
+        editedArticle.setVerifyInProgress(true);
+        return articleRepository.save(editedArticle);
+    }
+
     public List<Article> getAllArticles(){
         return articleRepository.findAll();
     }
