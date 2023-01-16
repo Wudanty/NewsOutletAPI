@@ -27,6 +27,8 @@ public class ArticleService {
     public Article postNewArticle(Article article){
         article.setCreationDate(LocalDate.now());
         article.setIsVerified(false);
+        article.setVerifyInProgress(true);
+        article.setIsDeclined(false);
         articleRepository.save(article);
         articleRepository.flush();
         return article;
