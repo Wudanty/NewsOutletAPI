@@ -27,6 +27,8 @@ public class ArticleService {
     public Article postNewArticle(Article article){
         article.setCreationDate(LocalDate.now());
         article.setIsVerified(false);
+        article.setVerifyInProgress(true);
+        article.setIsDeclined(false);
         articleRepository.save(article);
         articleRepository.flush();
         return article;
@@ -56,6 +58,18 @@ public class ArticleService {
     public Article verifyArticle(Integer id){
         Article editedArticle = articleRepository.getById(id);
         editedArticle.setIsVerified(true);
+        return articleRepository.save(editedArticle);
+    }
+
+    public Article declineArticle(Integer id){
+        Article editedArticle = articleRepository.getById(id);
+        editedArticle.setIsDeclined(true);
+        return articleRepository.save(editedArticle);
+    }
+
+    public Article markAsVerifyInProgress(Integer id){
+        Article editedArticle = articleRepository.getById(id);
+        editedArticle.setVerifyInProgress(true);
         return articleRepository.save(editedArticle);
     }
 

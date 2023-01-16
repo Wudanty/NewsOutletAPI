@@ -73,6 +73,16 @@ public class ArticleController {
         return articleService.verifyArticle(id);
     }
 
+    @PutMapping("/{id}/decline")
+    Article declineArticle(@PathVariable Integer id){
+        return articleService.declineArticle(id);
+    }
+
+    @PutMapping("/{id}/setInProgress")
+    Article setInProgressArticle(@PathVariable Integer id){
+        return articleService.markAsVerifyInProgress(id);
+    }
+
     @GetMapping("/{id}/get")
     Optional<Article> getArticleById(@PathVariable Integer id){
         return articleService.getArticleById(id);

@@ -31,6 +31,8 @@ public class Article {
     private List<Tag> articleTags;
     private LocalDate creationDate;
     private Boolean isVerified;
+    private Boolean verifyInProgress;
+    private Boolean isDeclined;
     @Column(length = 100000)
     private byte[] picture;
 
