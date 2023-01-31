@@ -140,11 +140,17 @@ public class ArticleService {
 
     public Optional<List<Article>> getVerified(){
         List<Article> result = new ArrayList<>();
-        for(Article article:articleRepository.findAll()){
-            if(article.getIsVerified()){
-                result.add(article);
+
+            for (Article article : articleRepository.findAll()) {
+                try {
+                    if (article.getIsVerified()) {
+                        result.add(article);
+                    }
+                }catch (NullPointerException e){
+                    System.out.println("NULL");
+                }
             }
-        }
+
         return Optional.of(result);
     }
 
@@ -152,8 +158,12 @@ public class ArticleService {
         List<Article> articlesWithTag = tagRepository.findAllByName(name).stream().map(Tag::getArticle).collect(Collectors.toList());
         List<Article> result = new ArrayList<>();
         for(Article article:articlesWithTag){
-            if(article.getIsVerified()){
-                result.add(article);
+            try {
+                if (article.getIsVerified()) {
+                    result.add(article);
+                }
+            }catch (NullPointerException e){
+                System.out.println("NULL");
             }
         }
         return result;
