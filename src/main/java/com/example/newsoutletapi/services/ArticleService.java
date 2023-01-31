@@ -19,11 +19,13 @@ import java.util.stream.Collectors;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final TagService tags;
     private final TagRepository tagRepository;
 
-    public ArticleService(ArticleRepository articleRepository, TagRepository tagRepository) {
+    public ArticleService(ArticleRepository articleRepository, TagRepository tagRepository, TagService tags) {
         this.tagRepository = tagRepository;
         this.articleRepository = articleRepository;
+        this.tags = tags;
     }
     public Article postNewArticle(Article article){
         article.setCreationDate(LocalDate.now());
@@ -35,11 +37,17 @@ public class ArticleService {
 
     public String deleteArticleById(Integer id){
         Optional<Article> post = articleRepository.findById(id);
-        if(articleRepository.findById(id).isPresent()){
+        /*if(articleRepository.findById(id).isPresent()){
             post.get().setArticleTags(null);
         }
-
+        for (Tag tag:tags.findTagsOfArticleById(id)){
+            tagRepository.delete(tag);
+            tagRepository.flush();
+        }*/
+        //System.out.println(articleRepository.getById(id).getArticleTags().get(0));
+        //articleRepository.getById(id).getArticleTags().clear();
         articleRepository.deleteById(id);
+
 
         return "Post successfully deleted";
     }
@@ -126,14 +134,14 @@ public class ArticleService {
         return result;
     }
 
-    public List<Article> getVerified(){
+    public Optional<List<Article>> getVerified(){
         List<Article> result = new ArrayList<>();
         for(Article article:articleRepository.findAll()){
             if(article.getIsVerified()){
                 result.add(article);
             }
         }
-        return result;
+        return Optional.of(result);
     }
 
     public List<Article> findArticlesByTagName(String name) {

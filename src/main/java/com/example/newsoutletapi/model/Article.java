@@ -27,7 +27,7 @@ public class Article {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JsonManagedReference
     private List<Tag> articleTags;
     private LocalDate creationDate;

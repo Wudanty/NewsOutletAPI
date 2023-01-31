@@ -37,6 +37,7 @@ public class ArticleController {
         newArticle.setCreationDate(LocalDate.now());
         newArticle.setTitle(article.getTitle());
         newArticle.setArticleTags(new ArrayList<>());
+        newArticle.setVerifyInProgress(true);
         System.out.println(article.getUser().getNickname());
         System.out.println(article.getUser().toString());
         newArticle.setPicture(article.getPicture());
@@ -110,7 +111,7 @@ public class ArticleController {
     }
 
     @GetMapping("/getVerified")
-    List<Article> getVerifiedArticles(){
+    Optional<List<Article>> getVerifiedArticles(){
         return articleService.getVerified();
     }
 

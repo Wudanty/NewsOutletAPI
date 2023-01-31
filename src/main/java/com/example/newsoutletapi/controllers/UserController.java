@@ -2,6 +2,8 @@ package com.example.newsoutletapi.controllers;
 import com.example.newsoutletapi.model.Article;
 import com.example.newsoutletapi.model.User;
 import com.example.newsoutletapi.services.UserService;
+import org.springframework.core.type.filter.RegexPatternTypeFilter;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,8 +28,15 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public void addUser(@RequestBody User user){
-        userService.addUser(user);
+    public ResponseEntity<String> addUser(@RequestBody User user){
+        String emailPattern = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$";
+        if(user.getEmail().matches(emailPattern)) {
+            userService.addUser(user);
+            return ResponseEntity.ok().body("User created successfully");
+        }else{
+            return ResponseEntity.badRequest().body("Please write a correct email");
+        }
+
     }
 
     @DeleteMapping("/delete/{id}")
@@ -38,11 +47,6 @@ public class UserController {
     @PutMapping("/update")
     public User updateUser(@RequestBody User user){
         return userService.updateUser(user);
-    }
-
-    @GetMapping("/hi")
-    public String helloWorld(){
-        return "Hello World!";
     }
 
     @GetMapping("/getByNickname/{nickname}")
