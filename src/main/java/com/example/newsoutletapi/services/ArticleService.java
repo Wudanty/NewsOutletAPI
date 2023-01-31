@@ -127,8 +127,12 @@ public class ArticleService {
     public List<Article> getUnverified(){
         List<Article> result = new ArrayList<>();
         for(Article article:articleRepository.findAll()){
-            if(article.getVerifyInProgress()){
-                result.add(article);
+            try {
+                if (article.getVerifyInProgress()) {
+                    result.add(article);
+                }
+            }catch(NullPointerException e){
+                System.out.println("NULL");
             }
         }
         return result;

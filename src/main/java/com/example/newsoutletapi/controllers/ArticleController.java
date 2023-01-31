@@ -38,6 +38,7 @@ public class ArticleController {
         newArticle.setTitle(article.getTitle());
         newArticle.setArticleTags(new ArrayList<>());
         newArticle.setVerifyInProgress(true);
+        newArticle.setIsVerified(false);
         System.out.println(article.getUser().getNickname());
         System.out.println(article.getUser().toString());
         newArticle.setPicture(article.getPicture());
