@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.List;
 
 @Entity
@@ -32,7 +33,6 @@ public class Article {
     private LocalDate creationDate;
     private Boolean isVerified;
     private Boolean verifyInProgress;
-    private Boolean isDeclined;
     @Column(length = 100000)
     private byte[] picture;
 

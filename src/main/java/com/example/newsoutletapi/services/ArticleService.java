@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -26,9 +27,7 @@ public class ArticleService {
     }
     public Article postNewArticle(Article article){
         article.setCreationDate(LocalDate.now());
-        article.setIsVerified(false);
         article.setVerifyInProgress(true);
-        article.setIsDeclined(false);
         articleRepository.save(article);
         articleRepository.flush();
         return article;
@@ -57,13 +56,15 @@ public class ArticleService {
 
     public Article verifyArticle(Integer id){
         Article editedArticle = articleRepository.getById(id);
+        editedArticle.setVerifyInProgress(false);
         editedArticle.setIsVerified(true);
         return articleRepository.save(editedArticle);
     }
 
     public Article declineArticle(Integer id){
         Article editedArticle = articleRepository.getById(id);
-        editedArticle.setIsDeclined(true);
+        editedArticle.setVerifyInProgress(false);
+        editedArticle.setIsVerified(false);
         return articleRepository.save(editedArticle);
     }
 
@@ -118,7 +119,7 @@ public class ArticleService {
     public List<Article> getUnverified(){
         List<Article> result = new ArrayList<>();
         for(Article article:articleRepository.findAll()){
-            if(!article.getIsVerified()){
+            if(article.getVerifyInProgress()){
                 result.add(article);
             }
         }
@@ -153,6 +154,7 @@ public class ArticleService {
                 result.add(article);
             }
         }
+        Collections.reverse(result);
         return result;
     }
 
