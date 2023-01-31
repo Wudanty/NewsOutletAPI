@@ -5,6 +5,7 @@ import com.example.newsoutletapi.model.Tag;
 import com.example.newsoutletapi.repos.TagRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,16 @@ public class TagService {
     public Tag removeTag(Tag tag){
         tagRepository.delete(tag);
         return tag;
+    }
+
+    public List<Tag> findTagsOfArticleById(Integer id){
+        List<Tag> result = new ArrayList<>();
+        for(Tag tag:tagRepository.findAll()){
+            if(tag.getArticle().getArticleId().equals(id)){
+                result.add(tag);
+            }
+        }
+        return result;
     }
 
     public String removeTagById(Integer id){

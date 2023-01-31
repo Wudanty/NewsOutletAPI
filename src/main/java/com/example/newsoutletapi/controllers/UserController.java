@@ -49,11 +49,6 @@ public class UserController {
         return userService.updateUser(user);
     }
 
-    @GetMapping("/hi")
-    public String helloWorld(){
-        return "Hello World!";
-    }
-
     @GetMapping("/getByNickname/{nickname}")
     public User getByNickname(@PathVariable String nickname){
         return userService.getUserByNickname(nickname);
